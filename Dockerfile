@@ -1,5 +1,4 @@
-FROM node:20-alpine as build
-
+FROM node:20-alpine
 COPY . /app
 
 WORKDIR /app
@@ -8,13 +7,6 @@ RUN  npm install -g pnpm \
   && pnpm prepare:docker \
   && pnpm config set node-linker hoisted \
   && pnpm install
-
-
-FROM node:20-alpine
-
-COPY --from=build /app /app
-
-WORKDIR /app
 
 VOLUME /app/data
 
